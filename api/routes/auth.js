@@ -35,7 +35,27 @@ router.post('/register', (req,res)=>
 })
 router.post('/login', (req,res)=>
 {
-    res.send('Usted ha iniciado sesion')
+    const { email, password} = req.body
+    Users.findOne({email}).exec()
+    .then(user =>
+        {
+            if(!users)
+            {
+                return res.send('usuario y/o contraseña incorrectos')
+            }
+            crypto.pbkdf2(password, user.salt, 10000, 64, 'sha1', (err, key) =>
+            {
+                const encryptedPass = key.toString('base64')
+                if(user.password === encryptedPass)
+                {
+                    const token = signToken(user._id)
+                    return res.send({token})
+                }else
+                {
+                    return res.send('usuario y/o contraseña incorrectos')
+                }
+            })
+        })
 })
 
 module.exports = router
