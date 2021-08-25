@@ -1,32 +1,11 @@
-const express = require('express')
-const Orders = require('../models/Orders')
-const router = express.Router()
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-router.get('/', (req,res)=>
-{
-    Orders.find()
-    .exec()
-    .then(x => res.status(200).send(x))
-})
-router.get('/:id', (req,res)=>
-{
-    Orders.findById(req.params.id)
-    .exec()
-    .then(x => res.status(200).send(x))
-})
-router.post('/', (req,res)=>
-{
-    Orders.create(req.body).then(x => res.status(201))
-})
-router.put('/:id', (req,res)=>
-{
-    Orders.findOneAndUpdate(req.params.id, req.body)
-    .then(()=> res.sendStatus(204))
-})
-router.delete('/', (req,res)=>
-{
-    Orders.findOneAndDelete(req.params.id, req.body).exec()
-    .then(()=> res.sendStatus(204))
-})
+const Orders = mongoose.model('Order', new Schema(
+    {
+        meal_id : {type : Schema.Types.ObjectId, ref: 'Meal'},
+        user_id : String,
+    }
+))
 
-module.exports = router
+module.exports = Orders

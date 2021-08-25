@@ -1,13 +1,32 @@
 const express = require('express')
+const Orders = require('../models/Orders')
 const router = express.Router()
 
 router.get('/', (req,res)=>
 {
-    res.send('GET orders')
+    Orders.find()
+    .exec()
+    .then(x => res.status(200).send(x))
+})
+router.get('/:id', (req,res)=>
+{
+    Orders.findById(req.params.id)
+    .exec()
+    .then(x => res.status(200).send(x))
 })
 router.post('/', (req,res)=>
 {
-    res.send('POST orders')
+    Orders.create(req.body).then(x => res.status(201))
+})
+router.put('/:id', (req,res)=>
+{
+    Orders.findOneAndUpdate(req.params.id, req.body)
+    .then(()=> res.sendStatus(204))
+})
+router.delete('/', (req,res)=>
+{
+    Orders.findOneAndDelete(req.params.id, req.body).exec()
+    .then(()=> res.sendStatus(204))
 })
 
 module.exports = router
