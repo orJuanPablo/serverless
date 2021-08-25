@@ -1,8 +1,16 @@
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 const Users = require('../models/Users')
+
 const router = express.Router()
 
+const signToken = (_id) => 
+{
+    return jwt.sign({_id}, 'mi_secreto', {
+        expiresIn: 60 * 60 * 24 * 365,
+    })
+}
 
 router.post('/register', (req,res)=>
 {
