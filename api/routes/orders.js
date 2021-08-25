@@ -16,14 +16,14 @@ router.get('/:id', (req,res)=>
 })
 router.post('/', (req,res)=>
 {
-    Orders.create(req.body).then(x => res.status(201))
+    Orders.create(req.body).then(x => res.status(201).send(x))
 })
 router.put('/:id', (req,res)=>
 {
-    Orders.findOneAndUpdate(req.params.id, req.body)
+    Orders.findOneAndUpdate(req.params.id, req.body).exec()
     .then(()=> res.sendStatus(204))
 })
-router.delete('/', (req,res)=>
+router.delete('/:id', (req,res)=>
 {
     Orders.findOneAndDelete(req.params.id, req.body).exec()
     .then(()=> res.sendStatus(204))
