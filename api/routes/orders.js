@@ -1,5 +1,6 @@
 const express = require('express')
 const Orders = require('../models/Orders')
+const isAuth = require('../auth')
 const router = express.Router()
 
 router.get('/', (req,res)=>
@@ -14,16 +15,17 @@ router.get('/:id', (req,res)=>
     .exec()
     .then(x => res.status(200).send(x))
 })
-router.post('/', (req,res)=>
+router.post('/', isAuth, (req,res)=>
 {
-    Orders.create(req.body).then(x => res.status(201).send(x))
+    const {_id} = req.user
+    Orders.create({...req.body, user_id : _id}).then(x => res.status(201).send(x))
 })
-router.put('/:id', (req,res)=>
+router.put('/:id', isAuth, (req,res)=>
 {
     Orders.findOneAndUpdate(req.params.id, req.body).exec()
     .then(()=> res.sendStatus(204))
 })
-router.delete('/:id', (req,res)=>
+router.delete('/:id', isAuth, (req,res)=>
 {
     Orders.findOneAndDelete(req.params.id, req.body).exec()
     .then(()=> res.sendStatus(204))
