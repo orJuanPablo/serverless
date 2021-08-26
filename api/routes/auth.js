@@ -48,8 +48,9 @@ router.post('/login', (req,res)=>
     Users.findOne({email}).exec()
     .then(user =>
         {
-            if(!users)
+            if(!user)
             {
+                console.log(user)
                 return res.send('usuario y/o contraseña incorrectos')
             }
             crypto.pbkdf2(password, user.salt, 10000, 64, 'sha1', (err, key) =>
@@ -68,6 +69,8 @@ router.post('/login', (req,res)=>
 })
 router.get('/me',isAuth,(req,res) =>
 {
+    req.user.password= ""
+    req.user.salt = ""
     res.send(req.user)
 })
 

@@ -11,11 +11,11 @@ const isAuth = (req,res, next) =>
     }
     jwt.verify(token, 'mi_secreto', (err, decoded) =>
     {
-        const {_id} = decoded
-        Users.findOne({ _id}).exec()
+        const { _id } = decoded
+        Users.findOne({ _id }).exec()
          .then(user => 
             {
-                req.User = user
+                req.user = user
                 next()
             })
     })
