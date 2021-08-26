@@ -1,6 +1,6 @@
 const express = require('express')
 const Orders = require('../models/Orders')
-const isAuth = require('../auth')
+const {isAuth, hasRoles} = require('../auth')
 const router = express.Router()
 
 router.get('/', (req,res)=>

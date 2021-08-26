@@ -20,4 +20,14 @@ const isAuth = (req,res, next) =>
             })
     })
 }
-module.exports = isAuth
+const hasRoles = roles =>  (req,res,next) =>
+{
+    if(roles.indexOf(req.user.role) > -1)
+    {
+        return next()
+    }else
+    {
+        res.sendStatus(403)
+    }
+}
+module.exports = {isAuth, hasRoles}
