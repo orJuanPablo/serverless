@@ -29,7 +29,7 @@ router.post('/register', (req,res)=>
                     {
                        return res.send('El email está vinculado a una cuenta')
                     }
-                    users.create(
+                    Users.create(
                         {
                             email : email,
                             password : encryptedPass,
