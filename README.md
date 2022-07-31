@@ -1,19 +1,13 @@
-# Custom Build Example
+# FrontEnd Pilotos La Rioja
+Proyecto de planilla de pilotos para inscripciôn en carreras ingresados de forma manual
+por los administradores del sistema que automatiza la generaciôn de reporte en formato xml.
 
-This directory is a brief example of using a Custom Build script that can be deployed with Vercel and zero configuration.
+# Implementaciôn
+Front End con ReactJS.
+Back End con NodeJS.
+Base de Datos MySQL.
+Despliegue en Heroku.
 
-## Deploy Your Own
-
-Deploy your own Custom Built project with Vercel.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/custom-build)
-
-_Live Example: https://custom-build.now-examples.now.sh_
-
-### How We Created This Example
-
-To get started deploying a Custom Built project with Vercel, you can use the [Vercel CLI](https://vercel.com/download) to initialize the project:
-
-```shell
-$ vercel init custom-build
-```
+#Datos de MockUp
+user: admin
+psw: admin123
